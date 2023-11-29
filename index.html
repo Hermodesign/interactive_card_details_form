@@ -37,6 +37,12 @@
         </div>
       </div>
       <div class="data">
+        <div class="sec-page hidden">
+          <div class="circle"></div>
+          <h1 class="head">Thank you!</h1>
+          <p class="paragraph">We've added your card details</p>
+          <button class="btn btn-2" onclick="backToHome()">Continue</button>
+        </div>
         <div class="form">
           <label for="lbl-name" class="lbl lbl-name">Cardholder Name</label>
           <input
@@ -102,108 +108,10 @@
               >
             </div>
           </div>
-          <button class="btn" onclick="validateForm()">Confirm</button>
+          <button class="btn btn-1" onclick="validateForm()">Confirm</button>
         </div>
       </div>
-      <div class="sec-page hidden">
-        Thank you! We've added your card details Continue
-      </div>
     </main>
-    <script>
-      function updateName(input) {
-        document.querySelector('.name').innerText = input.value;
-      }
-
-      function updateNumber(input) {
-        input.value = input.value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ');
-        const wrongFormat = document.querySelector('.wrong-number');
-        input.classList[input.value.match(/[^0-9\s]/) ? 'add' : 'remove'](
-          'red-border'
-        );
-
-        if (input.value.match(/[^0-9\s]/)) {
-          wrongFormat.classList.remove('hidden');
-        } else {
-          wrongFormat.classList.add('hidden');
-        }
-
-        document.querySelector('.number').innerText = input.value;
-      }
-
-      function updateDate() {
-        const monthInput = document.querySelector('.inp-mm');
-        const yearInput = document.querySelector('.inp-yy');
-        const monthSpan = document.querySelector('.month');
-        const yearSpan = document.querySelector('.year');
-
-        monthSpan.innerText = monthInput.value.padStart(2, '0');
-        yearSpan.innerText = yearInput.value.padStart(2, '0');
-      }
-
-      function onlyNumbers(evt) {
-        const charCode = evt.which || evt.keyCode;
-        return charCode >= 48 && charCode <= 57;
-      }
-
-      function updateCVC(input) {
-        document.querySelector('.number-back').innerText = input.value;
-      }
-
-      function validateForm() {
-        const nameInput = document.querySelector('.inp-name').value.trim();
-        const numberInput = document
-          .querySelector('.inp-number')
-          .value.replace(/\s/g, '');
-        const mmInput = document.querySelector('.inp-mm').value.trim();
-        const yyInput = document.querySelector('.inp-yy').value.trim();
-        const cvcInput = document.querySelector('.inp-cvc').value.trim();
-
-        const wrongName = document.querySelector('.wrong-name');
-        const wrongNumber = document.querySelector('.wrong-number-2');
-        const wrongDate = document.querySelector('.wrong-date');
-        const wrongCVC = document.querySelector('.wrong-cvc');
-
-        if (!nameInput) {
-          wrongName.classList.remove('hidden');
-        } else {
-          wrongName.classList.add('hidden');
-        }
-
-        if (numberInput.length !== 16) {
-          wrongNumber.classList.remove('hidden');
-        } else {
-          wrongNumber.classList.add('hidden');
-        }
-
-        if (!mmInput || !yyInput) {
-          wrongDate.classList.remove('hidden');
-        } else {
-          wrongDate.classList.add('hidden');
-        }
-
-        if (!cvcInput) {
-          wrongCVC.classList.remove('hidden');
-        } else {
-          wrongCVC.classList.add('hidden');
-        }
-
-        const errorMessages = document.querySelectorAll('.wrong:not(.hidden)');
-        const btnConfirm = document.querySelector('.btn');
-
-        if (errorMessages.length === 0) {
-          // Ovde možeš dodati akciju koju želiš izvršiti kada je forma validna
-          btnConfirm.disabled = false;
-          const dataClass = document.querySelector('.data');
-          const secPage = document.querySelector('.sec-page');
-
-          dataClass.classList.add('hidden');
-          console.log('Nikola');
-          secPage.classList.remove('hidden');
-        } else {
-          errorMessages = 0;
-          btnConfirm.disabled = true;
-        }
-      }
-    </script>
+    <script src="/js/script.js"></script>
   </body>
 </html>
