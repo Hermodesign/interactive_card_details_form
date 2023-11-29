@@ -26,7 +26,9 @@
             <div class="number">0000 0000 0000 0000</div>
             <div class="name-box">
               <div class="name">Jane Appleseed</div>
-              <div class="date">00/00</div>
+              <div class="date">
+                <span class="month">00</span>/<span class="year">00</span>
+              </div>
             </div>
           </div>
           <div class="card card-back">
@@ -41,22 +43,45 @@
             type="text"
             class="inp inp-name"
             placeholder="e.g. Jane Appleseed"
+            oninput="updateName(this)"
           />
+          <label class="wrong wrong-name hidden" for="cvc"
+            >Can't be blank</label
+          >
           <label for="bl-number" class="lbl lbl-name">Card Number</label>
           <input
             type="text"
             class="inp inp-number"
             placeholder="e.g. 1234 5678 9123 0000"
+            oninput="updateNumber(this)"
+            maxlength="19"
           />
           <div class="wrong wrong-number hidden">
             Wrong format, numbers only
           </div>
+          <label class="wrong wrong-number-2 hidden" for="cvc"
+            >Can't be blank or have less than 16 digits</label
+          >
           <div class="date-cvc-box">
             <div class="date-box">
               <label class="lbl lbl-date" for="cvc">Exp. Date (MM/YY)</label>
               <div class="inp-box">
-                <input type="text" class="inp inp-mm" placeholder="MM" />
-                <input type="text" class="inp inp-yy" placeholder="YY" />
+                <input
+                  type="text"
+                  class="inp inp-mm"
+                  placeholder="MM"
+                  oninput="updateDate()"
+                  maxlength="2"
+                  onkeypress="return onlyNumbers(event)"
+                />
+                <input
+                  type="text"
+                  class="inp inp-yy"
+                  placeholder="YY"
+                  oninput="updateDate()"
+                  maxlength="2"
+                  onkeypress="return onlyNumbers(event)"
+                />
               </div>
               <label class="wrong wrong-date hidden" for="cvc"
                 >Can't be blank</label
@@ -64,18 +89,121 @@
             </div>
             <div class="cvc-box">
               <label class="lbl lbl-cvc" for="cvc">CVC</label>
-              <input type="text" class="inp inp-cvc" placeholder="e.g. 123" />
+              <input
+                type="text"
+                class="inp inp-cvc"
+                placeholder="e.g. 123"
+                oninput="updateCVC(this)"
+                maxlength="3"
+                onkeypress="return onlyNumbers(event)"
+              />
               <label class="wrong wrong-cvc hidden" for="cvc"
                 >Can't be blank</label
               >
             </div>
           </div>
-          <button class="btn">Confirm</button>
-          <div class="sec-page hidden">
-            Thank you! We've added your card details Continue
-          </div>
+          <button class="btn" onclick="validateForm()">Confirm</button>
         </div>
       </div>
+      <div class="sec-page hidden">
+        Thank you! We've added your card details Continue
+      </div>
     </main>
+    <script>
+      function updateName(input) {
+        document.querySelector('.name').innerText = input.value;
+      }
+
+      function updateNumber(input) {
+        input.value = input.value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ');
+        const wrongFormat = document.querySelector('.wrong-number');
+        input.classList[input.value.match(/[^0-9\s]/) ? 'add' : 'remove'](
+          'red-border'
+        );
+
+        if (input.value.match(/[^0-9\s]/)) {
+          wrongFormat.classList.remove('hidden');
+        } else {
+          wrongFormat.classList.add('hidden');
+        }
+
+        document.querySelector('.number').innerText = input.value;
+      }
+
+      function updateDate() {
+        const monthInput = document.querySelector('.inp-mm');
+        const yearInput = document.querySelector('.inp-yy');
+        const monthSpan = document.querySelector('.month');
+        const yearSpan = document.querySelector('.year');
+
+        monthSpan.innerText = monthInput.value.padStart(2, '0');
+        yearSpan.innerText = yearInput.value.padStart(2, '0');
+      }
+
+      function onlyNumbers(evt) {
+        const charCode = evt.which || evt.keyCode;
+        return charCode >= 48 && charCode <= 57;
+      }
+
+      function updateCVC(input) {
+        document.querySelector('.number-back').innerText = input.value;
+      }
+
+      function validateForm() {
+        const nameInput = document.querySelector('.inp-name').value.trim();
+        const numberInput = document
+          .querySelector('.inp-number')
+          .value.replace(/\s/g, '');
+        const mmInput = document.querySelector('.inp-mm').value.trim();
+        const yyInput = document.querySelector('.inp-yy').value.trim();
+        const cvcInput = document.querySelector('.inp-cvc').value.trim();
+
+        const wrongName = document.querySelector('.wrong-name');
+        const wrongNumber = document.querySelector('.wrong-number-2');
+        const wrongDate = document.querySelector('.wrong-date');
+        const wrongCVC = document.querySelector('.wrong-cvc');
+
+        if (!nameInput) {
+          wrongName.classList.remove('hidden');
+        } else {
+          wrongName.classList.add('hidden');
+        }
+
+        if (numberInput.length !== 16) {
+          wrongNumber.classList.remove('hidden');
+        } else {
+          wrongNumber.classList.add('hidden');
+        }
+
+        if (!mmInput || !yyInput) {
+          wrongDate.classList.remove('hidden');
+        } else {
+          wrongDate.classList.add('hidden');
+        }
+
+        if (!cvcInput) {
+          wrongCVC.classList.remove('hidden');
+        } else {
+          wrongCVC.classList.add('hidden');
+        }
+
+        const errorMessages = document.querySelectorAll('.wrong:not(.hidden)');
+        const btnConfirm = document.querySelector('.btn');
+
+        if (errorMessages.length === 0) {
+          // Ovde možeš dodati akciju koju želiš izvršiti kada je forma validna
+          btnConfirm.disabled = false;
+          const dataClass = document.querySelector('.data');
+          const secPage = document.querySelector('.sec-page');
+
+          dataClass.classList.add('hidden');
+          console.log('Nikola');
+          secPage.classList.remove('hidden');
+        } else {
+          errorMessages = 0;
+          btnConfirm.disabled = true;
+        }
+      }
+    </script>
   </body>
 </html>
