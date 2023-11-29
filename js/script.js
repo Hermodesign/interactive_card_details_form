@@ -74,20 +74,26 @@ function validateForm() {
 
   if (!mmInput) {
     wrongDate.classList.remove('hidden');
+    document.querySelector('.inp-mm').classList.add('red-border');
   } else {
     wrongDate.classList.add('hidden');
+    document.querySelector('.inp-mm').classList.remove('red-border');
   }
 
   if (!yyInput) {
     wrongDate.classList.remove('hidden');
+    document.querySelector('.inp-yy').classList.add('red-border');
   } else {
     wrongDate.classList.add('hidden');
+    document.querySelector('.inp-yy').classList.remove('red-border');
   }
 
   if (!cvcInput) {
     wrongCVC.classList.remove('hidden');
+    document.querySelector('.inp-cvc').classList.add('red-border');
   } else {
     wrongCVC.classList.add('hidden');
+    document.querySelector('.inp-cvc').classList.remove('red-border');
   }
 
   const errorMessages = document.querySelectorAll('.wrong:not(.hidden)');

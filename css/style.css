@@ -82,21 +82,6 @@ body {
   margin-bottom: 70px;
 }
 
-.circle-1 {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  background-color: var(--color-1);
-  margin-right: 15px;
-}
-
-.circle-2 {
-  height: 22px;
-  width: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--color-1);
-}
-
 .number {
   font-size: 26px;
   letter-spacing: 3px;
@@ -269,4 +254,77 @@ body {
 .paragraph {
   color: var(--color-3);
   margin-bottom: 30px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .bg {
+    height: 240px;
+    width: 100%;
+    background-image: url('/images/bg-main-mobile.png');
+  }
+
+  .card-box {
+    height: 250px;
+    width: 340px;
+    transform: translate(0, 0);
+    position: relative;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+
+  .card {
+    height: 160px;
+    width: 280px;
+    border-radius: 10px;
+  }
+
+  .card-front {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    z-index: 10;
+  }
+
+  .card-back {
+    position: absolute;
+    top: 0px;
+    left: 60px;
+    z-index: 9;
+  }
+
+  .circle-box {
+    margin-bottom: 20px;
+  }
+
+  .number {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .name,
+  .date {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+
+  .number-back {
+    font-size: 12px;
+    text-align: right;
+    margin-top: 41px;
+    margin-right: 0;
+  }
+
+  .form {
+    margin-top: 100px;
+    width: 300px;
+  }
+
+  .sec-page {
+    margin-top: 100px;
+    width: 300px;
+  }
 }
