@@ -66,11 +66,19 @@ function validateForm() {
 
   if (numberInput.length !== 16) {
     wrongNumber.classList.remove('hidden');
+    document.querySelector('.inp-number').classList.add('red-border');
   } else {
     wrongNumber.classList.add('hidden');
+    document.querySelector('.inp-number').classList.remove('red-border');
   }
 
-  if (!mmInput || !yyInput) {
+  if (!mmInput) {
+    wrongDate.classList.remove('hidden');
+  } else {
+    wrongDate.classList.add('hidden');
+  }
+
+  if (!yyInput) {
     wrongDate.classList.remove('hidden');
   } else {
     wrongDate.classList.add('hidden');
@@ -101,7 +109,7 @@ function validateForm() {
   }
 }
 
-//Back to home
+// Reset all values
 function backToHome() {
   document.querySelector('.inp-name').value = '';
   document.querySelector('.name').innerText = 'Jane Appleseed';
